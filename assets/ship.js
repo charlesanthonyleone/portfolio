@@ -5,7 +5,7 @@ window.pfMotion=()=>on;document.documentElement.classList.toggle('calm',!on);
 const $=id=>document.getElementById(id),sc=document.querySelector('.scene'),top=$('scene-top'),ship=$('ship'),deck=$('deck'),lan=$('lantern'),fc=$('flame'),glow=$('lglow'),pool=$('lpool'),dawn=$('dawn'),cb=$('set-rock');
 const fx=fc.getContext('2d');
 cb.checked=on;cb.onchange=()=>{on=cb.checked;try{localStorage.setItem(K,on?'1':'0')}catch{};document.documentElement.classList.toggle('calm',!on);dispatchEvent(new Event('pfmotion'));on?loop():still()};
-const CFG={d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.898,hy:.58,lh:.32,px:.80,py:.888,ax:.5,dy:.128},m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.843,hy:.58,lh:.24,px:.72,py:.888,ax:.82,dy:.03,}};
+const CFG={d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.898,hy:.58,lh:.32,px:.80,py:.888,ax:.5,dy:.128},m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.84,hy:.26,lh:.118,px:.72,py:.888,ax:.82,dy:.03,}};
 let c,iw,ih,lw,lhh,DPR=Math.min(devicePixelRatio||1,2);
 function fit(){const w=innerWidth,h=innerHeight;c=w<760?CFG.m:CFG.d;if(!deck.src.endsWith(c.src))deck.src=c.src;
 const s=Math.max(w/c.W,h/(c.H*.8))*1.04;iw=c.W*s;ih=c.H*s;const x=(w-iw)*c.ax,y=h-ih+ih*c.dy;
