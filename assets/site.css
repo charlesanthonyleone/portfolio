@@ -58,3 +58,5 @@ h1{font-family:var(--serif);font-weight:600;font-size:clamp(44px,8vw,86px);line-
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
 html{scroll-behavior:smooth;scroll-padding-top:70px}
 @media print{.scene,.scene-top,.scene-set,.nav{display:none}}
+@media (min-width:900px){.grid{grid-template-columns:repeat(6,1fr)}.proj{grid-column:span 2}.proj.feat{grid-column:span 3}.proj.feat:first-child{grid-column:span 6;flex-direction:row}.proj.feat:first-child .shot{flex:0 0 58%;aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--line)}.proj.feat:first-child .pb{padding:26px 28px}}
+.proj.feat{border-color:rgba(246,220,166,.22)}.proj.feat h3{font-family:var(--serif);font-size:22px}.proj.feat .pb p{font-size:15px}
