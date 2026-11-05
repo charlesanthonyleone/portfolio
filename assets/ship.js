@@ -26,7 +26,7 @@ gl_FragColor=vec4(col,max(a,halo));}`));
 gl.linkProgram(pr);gl.useProgram(pr);const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
 const l=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);uT=gl.getUniformLocation(pr,'t');uI=gl.getUniformLocation(pr,'I');uS=gl.getUniformLocation(pr,'S');uR=gl.getUniformLocation(pr,'R')}
 cb.checked=on;cb.onchange=()=>{on=cb.checked;try{localStorage.setItem(K,on?'1':'0')}catch{};document.documentElement.classList.toggle('calm',!on);dispatchEvent(new Event('pfmotion'));on?loop():still()};
-const CFG={d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.898,hy:.58,lh:.32,px:.80,py:.888,ax:.5,dy:.128},m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.84,hy:.26,lh:.118,px:.72,py:.888,ax:.82,dy:.03,}};
+const CFG={d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.935,hy:.52,lh:.30,px:.86,py:.888,ax:.5,dy:.128},m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.86,hy:.24,lh:.118,px:.75,py:.888,ax:.82,dy:.03,}};
 let c,iw,ih,lw,lhh,DPR=Math.min(devicePixelRatio||1,2.5);
 function fit(){const w=innerWidth,h=innerHeight;c=w<760?CFG.m:CFG.d;if(!deck.src.endsWith(c.src))deck.src=c.src;
 const s=Math.max(w/c.W,h/(c.H*.8))*1.04;iw=c.W*s;ih=c.H*s;const x=(w-iw)*c.ax,y=h-ih+ih*c.dy;
