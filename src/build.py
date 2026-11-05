@@ -14,7 +14,7 @@ def page(fn,title,cls,body,extra=''):
 <div class="scene" aria-hidden="true"><div id="scene-fb" class="scene-fallback"></div><canvas id="scene-gl" class="scene-gl"></canvas><canvas id="scene-2d" class="scene-2d"></canvas></div>
 <div id="dawn" class="dawn" aria-hidden="true"></div>{extra}
 <canvas id="scene-top" class="scene-top" aria-hidden="true"></canvas>
-<div class="ship" id="ship" aria-hidden="true"><img id="deck" src="" alt="" decoding="async" draggable="false"><div class="lpool" id="lpool"></div><div class="lglow" id="lglow"></div><div class="lantern" id="lantern"><img src="assets/sky/lantern.webp" srcset="assets/sky/lantern.webp 427w, assets/sky/lantern@2x.webp 854w" sizes="(max-width:760px) 12vw, 10vw" alt="" draggable="false"><canvas id="flame"></canvas></div></div>
+<div class="ship" id="ship" aria-hidden="true"><picture><source media="(max-width:759px)" srcset="assets/sky/ship-deck-night-mobile.webp 864w, assets/sky/ship-deck-night-mobile@2x.webp 1728w" sizes="104vw"><img id="deck" src="assets/sky/ship-deck-night.webp" srcset="assets/sky/ship-deck-night.webp 1280w, assets/sky/ship-deck-night@2x.webp 2560w" sizes="104vw" width="1280" height="720" alt="" decoding="async" fetchpriority="high" draggable="false"></picture><div class="lantern-fire" aria-hidden="true"></div></div>
 <nav class="nav glass"><a href="index.html" class="brand">Charles Leone</a><span>{nav}</span></nav>
 <main class="wrap">{body}{foot}</main>
 {gear}
@@ -24,5 +24,9 @@ feat='<section class="featured"><div class="sec-h"><h2 class="sh">Flagship</h2><
 links='<section class="doors"><a class="door glass" href="story.html"><span class="eyebrow">The log</span><b>My Story</b><span>In my own words — 12 min read</span></a><a class="door glass" href="projects.html"><span class="eyebrow">The work</span><b>Projects</b><span>14 things built and live</span></a></section>'
 page('index.html','Charles Leone · Portfolio','p-home',hero+inv+links+feat)
 st=story.replace('<section id="story" class="essay glass">','<section id="story" class="essay log glass">').replace('<p class="eyebrow">My Story</p>','<p class="eyebrow">Ship’s log · My Story</p>')
+# Layout only: preserve the three source sections byte-for-byte.
+sections=re.findall(r'<section\b.*?</section>',st,re.S)
+assert len(sections)==3
+st=sections[1]+'<div class="story-columns">'+sections[0]+sections[2]+'</div>'
 page('story.html','My Story · Charles Leone','p-story','<div id="logbar" class="logbar"></div>'+st)
 page('projects.html','Projects · Charles Leone','p-projects',proj,'')
