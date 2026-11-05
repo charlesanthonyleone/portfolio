@@ -4,7 +4,7 @@ hero,inv,story,proj,foot,gear=[R(f+'.html') for f in 'hero invite story projects
 hero=hero.replace('href="#story"','href="story.html"').replace('href="#projects"','href="projects.html"')
 inv=inv.replace('href="#projects"','href="projects.html"')
 arts=re.findall(r'<article.*?</article>',proj,re.S)
-foot=foot.replace('Ship deck &amp; lantern: original image generated for this site','Ship deck &amp; lantern: drawn in code for this site')
+foot=foot.replace('Ship deck &amp; lantern: original image generated for this site','Ship: coherent photoreal helm plate + scene sky/ocean')
 def page(fn,title,cls,body,extra=''):
   nav=''.join(f'<a href="{h}"{" aria-current=page" if h==fn else ""}>{t}</a>' for h,t in [('story.html','My Story'),('projects.html','Projects'),('https://github.com/charlesanthonyleone','GitHub')])
   open(fn,'w').write(f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -14,11 +14,11 @@ def page(fn,title,cls,body,extra=''):
 <div class="scene" aria-hidden="true"><div id="scene-fb" class="scene-fallback"></div><canvas id="scene-gl" class="scene-gl"></canvas><canvas id="scene-2d" class="scene-2d"></canvas></div>
 <div id="dawn" class="dawn" aria-hidden="true"></div>{extra}
 <canvas id="scene-top" class="scene-top" aria-hidden="true"></canvas>
-<div class="ship" id="ship" aria-hidden="true"><canvas id="deck"></canvas><canvas id="lantern"></canvas></div>
+<div class="ship" id="ship" aria-hidden="true"><img id="deck" src="" alt="" decoding="async" draggable="false"><div class="lpool" id="lpool"></div><div class="lglow" id="lglow"></div><div class="lantern" id="lantern"><canvas id="flame"></canvas></div></div>
 <nav class="nav glass"><a href="index.html" class="brand">Charles Leone</a><span>{nav}</span></nav>
 <main class="wrap">{body}{foot}</main>
 {gear}
-<script src="assets/scene.js" defer></script><script src="assets/ship.js" defer></script><script src="assets/pages.js" defer></script>
+<script src="assets/scene.js" defer></script><script src="assets/ship.js?v=helmplate1" defer></script><script src="assets/pages.js" defer></script>
 </body></html>''')
 feat='<section class="featured"><div class="sec-h"><h2 class="sh">Flagship</h2><a class="hint" href="projects.html">All 14 projects →</a></div><div class="grid">'+''.join(arts[:3])+'</div></section>'
 links='<section class="doors"><a class="door glass" href="story.html"><span class="eyebrow">The log</span><b>My Story</b><span>In my own words — 12 min read</span></a><a class="door glass" href="projects.html"><span class="eyebrow">The work</span><b>Projects</b><span>14 things built and live</span></a></section>'
