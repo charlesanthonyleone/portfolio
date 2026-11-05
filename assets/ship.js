@@ -14,6 +14,7 @@
   const deck=document.getElementById('deck'), lan=document.getElementById('lantern');
   if(!deck||!lan){apply();return}
   const dc=deck.getContext('2d'), lc=lan.getContext('2d');
+  const TEX=new Image();TEX.decoding='async';TEX.src='assets/deck-teak.jpg';TEX.onload=()=>draw();let PAT=null;
   const HZ=.6, EYE=1.75, NEAR=.9, BOW=13.5, MID=6.5, HW=3.4, WALL=.62, PLANK=.17;
   let LX=1.05, LZ=3.4; // lantern position on the deck (metres)
   let W=0,H=0,D=1,f=1,cx=0,hy=0,P={};
@@ -45,43 +46,38 @@
     // --- deck planks (clipped to the hull)
     c.save();poly(c,outline(0));c.clip();
     c.fillStyle='#120c08';c.fillRect(0,0,W,H);
-    const n=Math.ceil(HW/PLANK);
-    for(let i=-n;i<n;i++){
-      const x0=i*PLANK, x1=x0+PLANK, xm=x0+PLANK/2;
-      const q=rnd(),tone=[78+q*34,58+q*22,42+q*14];
-      let z=NEAR-rnd()*3;
-      while(z<BOW){
-        const len=3.2+rnd()*3.5, z0=Math.max(z,NEAR), z1=Math.min(z+len,BOW+.5);
-        // fill the board in short segments so lantern light falls off smoothly
-        for(let a=z0;a<z1;a+=.35){const b=Math.min(a+.35,z1);
-          const t=tone.map(v=>v*(.9+.2*Math.sin(i*1.7+z*.3)));
-          c.fillStyle=rgb(shade(t,xm,(a+b)/2));poly(c,[pr(x0,0,a),pr(x1,0,a),pr(x1,0,b),pr(x0,0,b)]);c.fill()}
-        // grain: thin streaks along the board
-        for(let g=0;g<4;g++){const gx=x0+PLANK*(.15+.7*rnd()),ga=z0+rnd()*len*.3,gb=Math.min(z1,ga+len*(.4+rnd()*.5));
-          const A=pr(gx,0,ga),B=pr(gx+(rnd()-.5)*.02,0,gb);c.strokeStyle=`rgba(20,10,4,${.18+rnd()*.2})`;c.lineWidth=Math.max(.6,f*.006/ga);
-          c.beginPath();c.moveTo(A[0],A[1]);c.lineTo(B[0],B[1]);c.stroke()}
-        // butt joint + treenails
-        if(z1<BOW){const A=pr(x0,0,z1),B=pr(x1,0,z1);c.strokeStyle='rgba(8,4,2,.85)';c.lineWidth=Math.max(1,f*.012/z1);c.beginPath();c.moveTo(A[0],A[1]);c.lineTo(B[0],B[1]);c.stroke();
-          for(const zz of[z1-.07,z1+.07]){const p=pr(xm,0,zz),rr=Math.max(.8,f*.012/zz);c.fillStyle=rgb(shade([40,30,22],xm,zz));c.beginPath();c.ellipse(p[0],p[1],rr,rr*.45*EYE/zz*1.2,0,0,7);c.fill()}}
-        z+=len;
+    // photographic teak, mapped row by row in true perspective (mode-7 style) so grain stays sharp
+    if(TEX.complete&&TEX.naturalWidth){
+      c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
+      const tw=TEX.naturalWidth,th=TEX.naturalHeight,TW=1.36,TL=2.6; // metres covered by one tile
+      const yTop=Math.ceil(pr(0,0,BOW)[1]),yBot=Math.min(H,Math.floor(pr(0,0,NEAR)[1])+1);
+      for(let y=yTop;y<yBot;y++){
+        const z=f*EYE/(y+.5-hy);if(z<NEAR*.98||z>BOW+.2)continue;
+        const hw=half(z)+.2,sv=((z/TL)%1)*th, rowH=Math.max(1,th*(f*EYE/(y-hy)-f*EYE/(y+1-hy))/TL);
+        const sx0=Math.floor(-hw/TW);
+        for(let t=sx0;t*TW<hw;t++){const xa=t*TW,xb=xa+TW,A=cx+f*xa/z,B=cx+f*xb/z;
+          c.drawImage(TEX,0,Math.min(sv,th-rowH),tw,Math.min(rowH,th-1),A,y,B-A+.6,1.02)}
       }
-      // caulked seam between boards
-      c.fillStyle='rgba(8,4,2,.92)';poly(c,[pr(x0-.004,0,NEAR),pr(x0+.004,0,NEAR),pr(x0+.004,0,BOW),pr(x0-.004,0,BOW)]);c.fill();
-      c.strokeStyle='rgba(8,4,2,.6)';c.lineWidth=.8*D;const A=pr(x0,0,NEAR),B=pr(x0,0,BOW);c.beginPath();c.moveTo(A[0],A[1]);c.lineTo(B[0],B[1]);c.stroke();
+      // night exposure: dark everywhere except the lantern's pool, deeper toward the bow
+      const lp0=pr(LX,0,LZ),rr=f*3.2/LZ;c.save();c.translate(lp0[0],lp0[1]);c.scale(1.6,EYE/LZ*1.3);
+      const dk=c.createRadialGradient(0,0,0,0,0,rr);dk.addColorStop(0,'rgba(10,6,4,.18)');dk.addColorStop(.35,'rgba(8,8,12,.5)');dk.addColorStop(1,'rgba(6,9,16,.74)');
+      c.fillStyle=dk;c.fillRect(-W*2,-H*2,W*4,H*4);c.restore();
+      const fz=c.createLinearGradient(0,pr(0,0,BOW)[1],0,pr(0,0,4.5)[1]);fz.addColorStop(0,'rgba(10,16,28,.7)');fz.addColorStop(1,'rgba(10,16,28,0)');c.fillStyle=fz;c.fillRect(0,0,W,H);
     }
     // wet sheen of moonlight on the far boards
-    const sh=c.createLinearGradient(0,pr(0,0,BOW)[1],0,pr(0,0,4)[1]);sh.addColorStop(0,'rgba(150,175,220,.10)');sh.addColorStop(1,'rgba(150,175,220,0)');c.fillStyle=sh;c.fillRect(0,0,W,H);
+    const sh=c.createLinearGradient(0,pr(0,0,BOW)[1],0,pr(0,0,4)[1]);sh.addColorStop(0,'rgba(150,175,220,.16)');sh.addColorStop(1,'rgba(150,175,220,0)');c.fillStyle=sh;c.fillRect(0,0,W,H);
     // lantern pool of light + contact shadow
     const lp=pr(LX,0,LZ),rad=f*2.6/LZ;
     c.save();c.translate(lp[0],lp[1]);c.scale(1,EYE/LZ*1.0);
-    let g=c.createRadialGradient(0,0,0,0,0,rad);g.addColorStop(0,'rgba(255,170,70,.32)');g.addColorStop(.35,'rgba(255,140,50,.12)');g.addColorStop(1,'rgba(255,120,40,0)');
+    let g=c.createRadialGradient(0,0,0,0,0,rad);g.addColorStop(0,'rgba(255,160,70,.22)');g.addColorStop(.35,'rgba(255,130,50,.08)');g.addColorStop(1,'rgba(255,120,40,0)');
     c.globalCompositeOperation='lighter';c.fillStyle=g;c.fillRect(-rad,-rad,rad*2,rad*2);c.restore();
     c.restore();
+    PAT=TEX.naturalWidth?dc.createPattern(TEX,'repeat'):null;if(PAT)PAT.setTransform(new DOMMatrix().scale(D*.5).rotate(90));
     // --- bulwarks: inner planking up to a cap rail, both sides, following the hull's curve
     for(const side of[-1,1]){
       for(let z=NEAR;z<BOW-.05;z+=.12){const z2=Math.min(z+.12,BOW);const h1=half(z)*side,h2=half(z2)*side;
         const base=[70,48,32];
-        dc.fillStyle=rgb(shade(base.map(v=>v*.75),h1,z));poly(dc,[pr(h1,0,z),pr(h2,0,z2),pr(h2,WALL,z2),pr(h1,WALL,z)]);dc.fill()}
+        poly(dc,[pr(h1,0,z),pr(h2,0,z2),pr(h2,WALL,z2),pr(h1,WALL,z)]);if(PAT){dc.fillStyle=PAT;dc.fill()}const sc=shade(base.map(v=>v*.75),h1,z);dc.fillStyle=`rgba(${sc[0]},${sc[1]},${sc[2]},${PAT?.72:1})`;dc.fill()}
       // strake lines on the bulwark
       for(const y of[.16,.32,.47]){dc.beginPath();for(let z=NEAR;z<=BOW;z+=.1){const p=pr(half(z)*side,y,z);z==NEAR?dc.moveTo(p[0],p[1]):dc.lineTo(p[0],p[1])}dc.strokeStyle='rgba(10,5,2,.7)';dc.lineWidth=Math.max(1,D*1.2);dc.stroke()}
       // stanchions
@@ -101,6 +97,25 @@
     {const rz=2.6,rx=W<H?-.9:-2.4,p=pr(rx,0,rz),k=f/rz;for(let i=7;i>0;i--){dc.beginPath();dc.ellipse(p[0],p[1]-i*k*.012,k*.045*i,k*.045*i*EYE/rz*.55,0,0,7);dc.strokeStyle=rgb(shade([150,118,72].map(v=>v*(.7+.04*i)),rx,rz));dc.lineWidth=k*.028;dc.stroke()}}
     // vignette to seat it in the night
     const v=dc.createLinearGradient(0,H,0,hy);v.addColorStop(0,'rgba(2,4,8,.55)');v.addColorStop(.5,'rgba(2,4,8,0)');dc.globalCompositeOperation='source-atop';dc.fillStyle=v;dc.fillRect(0,0,W,H);dc.globalCompositeOperation='source-over';
+    // --- ship's wheel in the foreground: we stand at the helm looking out over the deck
+    if(PAT){const R=Math.min(W*.2,H*.2),wx=cx-(W<H?0:W*.05),wy=H-R*.3;dc.save();
+      const wp=dc.createPattern(TEX,'repeat');wp.setTransform(new DOMMatrix().scale(D*.7));
+      const wood=(path,dark)=>{dc.fillStyle=wp;dc.fill(path);dc.fillStyle=`rgba(14,8,4,${dark})`;dc.fill(path)};
+      // pedestal
+      let pa=new Path2D();pa.rect(wx-R*.16,wy,R*.32,H-wy+2);wood(pa,.6);
+      // spokes with turned handles
+      for(let i=0;i<10;i++){const a=i/10*Math.PI*2+.16,ca=Math.cos(a),sa=Math.sin(a);
+        const sp=new Path2D();const w=R*.05;
+        sp.moveTo(wx-sa*w,wy+ca*w);sp.lineTo(wx+ca*R*1.22-sa*w*.8,wy+sa*R*1.22+ca*w*.8);sp.lineTo(wx+ca*R*1.22+sa*w*.8,wy+sa*R*1.22-ca*w*.8);sp.lineTo(wx+sa*w,wy-ca*w);sp.closePath();wood(sp,.42);
+        const hx=wx+ca*R*1.16,hy2=wy+sa*R*1.16,hd=new Path2D();hd.ellipse(hx,hy2,R*.07,R*.07,0,0,7);wood(hd,.35);
+        dc.strokeStyle='rgba(255,190,120,.22)';dc.lineWidth=Math.max(1,D);dc.beginPath();dc.moveTo(wx+ca*R*.2,wy+sa*R*.2-w*.6);dc.lineTo(wx+ca*R*1.2,wy+sa*R*1.2-w*.6);dc.stroke()}
+      // rim: thick ring with bevel light from the lantern side
+      const rim=new Path2D();rim.arc(wx,wy,R*.97,0,Math.PI*2);rim.arc(wx,wy,R*.8,0,Math.PI*2,true);wood(rim,.38);
+      const rl=dc.createLinearGradient(wx-R,wy-R,wx+R,wy);rl.addColorStop(0,'rgba(0,0,0,.35)');rl.addColorStop(.7,'rgba(255,170,90,.10)');rl.addColorStop(1,'rgba(255,190,110,.22)');dc.fillStyle=rl;dc.fill(rim);
+      dc.strokeStyle='rgba(6,3,1,.8)';dc.lineWidth=Math.max(1,D*1.4);dc.stroke(rim);
+      // brass hub
+      const hb=dc.createRadialGradient(wx-R*.05,wy-R*.05,0,wx,wy,R*.17);hb.addColorStop(0,'rgb(222,170,90)');hb.addColorStop(.6,'rgb(130,86,36)');hb.addColorStop(1,'rgb(40,26,12)');
+      dc.fillStyle=hb;dc.beginPath();dc.arc(wx,wy,R*.17,0,7);dc.fill();dc.restore()}
     P={lp,k:f/LZ};frame(performance.now());
   }
 
