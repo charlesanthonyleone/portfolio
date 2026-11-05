@@ -18,7 +18,7 @@ def page(fn,title,cls,body,extra=''):
 <nav class="nav glass"><a href="index.html" class="brand">Charles Leone</a><span>{nav}</span></nav>
 <main class="wrap">{body}{foot}</main>
 {gear}
-<script src="assets/scene.js" defer></script><script src="assets/ship.js?v=helmplate2" defer></script><script src="assets/pages.js" defer></script>
+<script src="assets/scene.js" defer></script><script src="assets/ship.js?v=water1" defer></script><script src="assets/pages.js" defer></script>
 </body></html>''')
 feat='<section class="featured"><div class="sec-h"><h2 class="sh">Flagship</h2><a class="hint" href="projects.html">All 14 projects →</a></div><div class="grid">'+''.join(arts[:3])+'</div></section>'
 links='<section class="doors"><a class="door glass" href="story.html"><span class="eyebrow">The log</span><b>My Story</b><span>In my own words — 12 min read</span></a><a class="door glass" href="projects.html"><span class="eyebrow">The work</span><b>Projects</b><span>14 things built and live</span></a></section>'

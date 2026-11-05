@@ -1,4 +1,4 @@
-/* Coherent photoreal helm plate over scene.js sky/ocean + flame flicker. */
+/* Coherent photoreal helm plate over scene.js sky/ocean + flame flicker. water1: clear sea void alpha */
 (()=>{
   const K='pf-rock', rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let on=(()=>{try{const v=localStorage.getItem(K);return v===null?!rm:v==='1'}catch{return!rm}})();
