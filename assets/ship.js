@@ -55,7 +55,7 @@ gl_FragColor=vec4(col,max(a,halo));}`));
   }
 
   const CFG={
-    d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.748,hy:.552,lh:.065,px:.72,py:.70,ax:.5,dy:.16},
+    d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.748,hy:.552,lh:.065,px:.72,py:.70,ax:.5,dy:.20},
     m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.805,hy:.542,lh:.07,px:.76,py:.76,ax:.5,dy:.22}
   };
   let c,iw,ih,lw,lhh,DPR=Math.min(devicePixelRatio||1,2);
@@ -66,7 +66,7 @@ gl_FragColor=vec4(col,max(a,halo));}`));
     const want = c.src;
     // Always set via attribute so empty-src → documentURL doesn't confuse us
     if(deck.getAttribute('src')!==want) deck.setAttribute('src', want);
-    const s=Math.max(w/c.W, h/(c.H*0.70))*1.10;
+    const s=Math.max(w/c.W, h/(c.H*0.62))*1.14;
     iw=c.W*s; ih=c.H*s;
     const x=(w-iw)*c.ax, y=h-ih+ih*c.dy;
     ship.style.cssText = `position:fixed;z-index:2;pointer-events:none;transform-origin:50% 100%;width:${iw}px;height:${ih}px;left:${x}px;top:${y}px;`;

@@ -1,0 +1,13 @@
+<!doctype html><meta charset=utf-8>
+<style>
+body{margin:0;background:#061018}
+.ship{position:fixed;z-index:2;pointer-events:none;transform-origin:50% 100%}
+.lglow,.lpool{position:absolute;width:calc(var(--r)*2);height:calc(var(--r)*2);margin:calc(var(--r)*-1) 0 0 calc(var(--r)*-1);border-radius:50%;mix-blend-mode:screen}
+.lglow{background:radial-gradient(circle,rgba(255,200,120,.4),transparent 70%)}
+.lpool{height:calc(var(--r)*.8);margin-top:calc(var(--r)*-.4);background:radial-gradient(closest-side,rgba(255,170,80,.3),transparent)}
+</style>
+<div class="scene"></div>
+<canvas id="scene-top"></canvas>
+<div class="ship" id="ship"><img id="deck" src="" alt=""><div class="lpool" id="lpool"></div><div class="lglow" id="lglow"></div><div class="lantern" id="lantern"><canvas id="flame"></canvas></div></div>
+<label style="position:fixed;z-index:9;color:#fff"><input type="checkbox" id="set-rock" checked>rock</label>
+<script src="assets/ship.js?v=dbg3"></script>
