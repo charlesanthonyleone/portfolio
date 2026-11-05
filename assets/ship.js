@@ -55,8 +55,8 @@ gl_FragColor=vec4(col,max(a,halo));}`));
   }
 
   const CFG={
-    d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.742,hy:.548,lh:.09,px:.72,py:.70,ax:.5,dy:.16},
-    m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.80,hy:.538,lh:.09,px:.76,py:.76,ax:.5,dy:.22}
+    d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.748,hy:.552,lh:.065,px:.72,py:.70,ax:.5,dy:.16},
+    m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.805,hy:.542,lh:.07,px:.76,py:.76,ax:.5,dy:.22}
   };
   let c,iw,ih,lw,lhh,DPR=Math.min(devicePixelRatio||1,2);
 
@@ -71,7 +71,7 @@ gl_FragColor=vec4(col,max(a,halo));}`));
     const x=(w-iw)*c.ax, y=h-ih+ih*c.dy;
     ship.style.cssText = `position:fixed;z-index:2;pointer-events:none;transform-origin:50% 100%;width:${iw}px;height:${ih}px;left:${x}px;top:${y}px;`;
     deck.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;display:block;object-fit:fill;';
-    lhh=ih*c.lh; lw=lhh*0.55;
+    lhh=ih*c.lh; lw=lhh*0.42;
     lan.style.cssText = `position:absolute;width:${lw}px;height:${lhh}px;left:${c.hx*iw-lw/2}px;top:${c.hy*ih}px;transform-origin:50% 0;pointer-events:none;`;
     fc.width=Math.max(2,Math.round(lw*DPR)); fc.height=Math.max(2,Math.round(lhh*DPR));
     fc.style.cssText = `position:absolute;left:0;top:0;width:${lw}px;height:${lhh}px;mix-blend-mode:screen;display:block;`;
