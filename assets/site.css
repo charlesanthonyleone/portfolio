@@ -9,7 +9,7 @@ a{color:var(--gold2);text-decoration-color:rgba(246,220,166,.35);text-underline-
 .scene{position:fixed;inset:0;z-index:0;pointer-events:none;background:#02050b}
 .scene canvas,.scene-top{position:fixed;inset:0;width:100vw;height:100vh;display:block}
 .scene-top{z-index:9999;pointer-events:none}
-.scene-fallback{position:fixed;inset:0;display:none;background:radial-gradient(60% 18% at 32% 60%,rgba(150,170,200,.10),transparent 70%),linear-gradient(to bottom,#010309 0%,#050b16 52%,#0c1522 59.6%,#050b14 60.4%,#01050b 100%)}
+.scene-fallback{position:fixed;inset:0;display:none;background:url("sky/hero.webp") center/cover no-repeat,#02050b}
 .scene-fallback.on{display:block}
 /* settings */
 .scene-set{position:fixed;right:14px;bottom:14px;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
@@ -125,3 +125,4 @@ html.calm .p-projects .proj{opacity:1;transform:none;filter:none;transition:none
 .lantern img{filter:contrast(1.04) saturate(1.06)}
 .pb p strong{color:var(--gold2);font-weight:700}
 .proj.feat .pb p strong{color:#ffe6b0}
+/* stars behind ship: .scene/.scene-top z-index 0/1, #ship z-index 2 — never draw stars on wood/lantern */

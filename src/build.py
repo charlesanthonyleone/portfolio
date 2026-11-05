@@ -14,7 +14,7 @@ def page(fn,title,cls,body,extra=''):
 <div class="scene" aria-hidden="true"><div id="scene-fb" class="scene-fallback"></div><canvas id="scene-gl" class="scene-gl"></canvas><canvas id="scene-2d" class="scene-2d"></canvas></div>
 <div id="dawn" class="dawn" aria-hidden="true"></div>{extra}
 <canvas id="scene-top" class="scene-top" aria-hidden="true"></canvas>
-<div class="ship" id="ship" aria-hidden="true"><img id="deck" src="" alt="" decoding="async"><div class="lpool" id="lpool"></div><div class="lglow" id="lglow"></div><div class="lantern" id="lantern"><img src="assets/sky/lantern.webp" alt=""><canvas id="flame"></canvas></div></div>
+<div class="ship" id="ship" aria-hidden="true"><img id="deck" src="" alt="" decoding="async" draggable="false"><div class="lpool" id="lpool"></div><div class="lglow" id="lglow"></div><div class="lantern" id="lantern"><img src="assets/sky/lantern.webp" srcset="assets/sky/lantern.webp 427w, assets/sky/lantern@2x.webp 854w" sizes="(max-width:760px) 12vw, 10vw" alt="" draggable="false"><canvas id="flame"></canvas></div></div>
 <nav class="nav glass"><a href="index.html" class="brand">Charles Leone</a><span>{nav}</span></nav>
 <main class="wrap">{body}{foot}</main>
 {gear}
