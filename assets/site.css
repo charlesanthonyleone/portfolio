@@ -105,3 +105,21 @@ h1{color:#fffdf7;background:none;-webkit-text-fill-color:#fffdf7;text-shadow:0 0
 .calm .p-projects .proj,.calm.p-projects .proj{opacity:1;transform:none;filter:none;transition:none}
 html.calm .p-projects .proj{opacity:1;transform:none;filter:none;transition:none}
 @media (prefers-reduced-motion:reduce){.p-projects .proj,.log .prose p{opacity:1!important;transform:none!important;filter:none!important}}
+
+/* Grok Bot prompt + recommendation beside the essay */
+.essay.side{max-width:780px;margin:0 auto 36px;border-radius:24px;padding:clamp(22px,4vw,44px);background:rgba(8,12,22,.78)}
+.essay.side.rec{border-color:rgba(246,220,166,.28);box-shadow:0 0 0 1px rgba(246,220,166,.08),0 20px 50px -20px rgba(0,0,0,.6)}
+.verbatim{margin:0;padding:18px 18px 20px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);color:#e8edf6;font:14.5px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+.p-story .essay.side .verbatim{color:#f1e6d2;border-color:rgba(233,194,122,.16);background:rgba(0,0,0,.28)}
+/* Embolden every product description for admissions readers */
+.pb p{color:#d7deea;font-size:14.5px;line-height:1.6;font-weight:500}
+.proj.feat .pb p{color:#e8edf6;font-size:15.5px;line-height:1.65;font-weight:600}
+.proj.feat h3{letter-spacing:.01em}
+.featured .proj.feat:first-child .pb p{font-size:16.5px;font-weight:600}
+/* HD ship: keep deck pixels crisp at high DPR */
+#deck{image-rendering:-webkit-optimize-contrast;image-rendering:high-quality}
+.lantern img{image-rendering:-webkit-optimize-contrast;image-rendering:high-quality}
+@media (max-width:600px){.essay.side{margin-bottom:24px;padding:20px 16px}.verbatim{font-size:13.5px;padding:14px}}
+/* HD ship deck sharpen (subtle; stars stay on scene-top behind .ship) */
+#deck{filter:contrast(1.06) saturate(1.05)}
+.lantern img{filter:contrast(1.04) saturate(1.06)}

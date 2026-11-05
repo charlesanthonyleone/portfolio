@@ -27,11 +27,11 @@ gl.linkProgram(pr);gl.useProgram(pr);const b=gl.createBuffer();gl.bindBuffer(gl.
 const l=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);uT=gl.getUniformLocation(pr,'t');uI=gl.getUniformLocation(pr,'I');uS=gl.getUniformLocation(pr,'S');uR=gl.getUniformLocation(pr,'R')}
 cb.checked=on;cb.onchange=()=>{on=cb.checked;try{localStorage.setItem(K,on?'1':'0')}catch{};document.documentElement.classList.toggle('calm',!on);dispatchEvent(new Event('pfmotion'));on?loop():still()};
 const CFG={d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.898,hy:.58,lh:.32,px:.80,py:.888,ax:.5,dy:.128},m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.84,hy:.26,lh:.118,px:.72,py:.888,ax:.82,dy:.03,}};
-let c,iw,ih,lw,lhh,DPR=Math.min(devicePixelRatio||1,2);
+let c,iw,ih,lw,lhh,DPR=Math.min(devicePixelRatio||1,2.5);
 function fit(){const w=innerWidth,h=innerHeight;c=w<760?CFG.m:CFG.d;if(!deck.src.endsWith(c.src))deck.src=c.src;
 const s=Math.max(w/c.W,h/(c.H*.8))*1.04;iw=c.W*s;ih=c.H*s;const x=(w-iw)*c.ax,y=h-ih+ih*c.dy;
 ship.style.width=iw+'px';ship.style.height=ih+'px';ship.style.left=x+'px';ship.style.top=y+'px';
-lhh=ih*c.lh;lw=lhh*427/1050;Object.assign(lan.style,{width:lw+'px',height:lhh+'px',left:(c.hx*iw-lw/2)+'px',top:(c.hy*ih)+'px'});
+lhh=ih*c.lh;lw=lhh*488/1200;Object.assign(lan.style,{width:lw+'px',height:lhh+'px',left:(c.hx*iw-lw/2)+'px',top:(c.hy*ih)+'px'});
 fc.width=Math.round(lw*.5*DPR);fc.height=Math.round(lhh*.32*DPR);fc.style.width=lw*.5+'px';fc.style.height=lhh*.32+'px';
 const R=Math.max(180,iw*.2);glow.style.setProperty('--r',R+'px');glow.style.left=c.hx*iw+'px';glow.style.top=(c.hy*ih+lhh*.47)+'px';
 pool.style.left=c.px*iw+'px';pool.style.top=c.py*ih+'px';pool.style.setProperty('--r',iw*.22+'px')}
