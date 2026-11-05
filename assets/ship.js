@@ -216,9 +216,10 @@
 
     // --- ship's wheel: photoreal PNG composited at the helm (not flat canvas arcs)
     {
-      const R=Math.min(W*.24, H*.26);
+      // Mobile: keep more of the photo wheel on-screen (was cropping to hub+arc only)
+      const R=narrow?Math.min(W*.28, H*.18):Math.min(W*.24, H*.26);
       const wx=cx-(narrow?0:W*.05);
-      const wy=H-R*.28;
+      const wy=narrow?H-R*.55:H-R*.28;
 
       // Wooden pedestal / binnacle stump under the wheel
       dc.save();
