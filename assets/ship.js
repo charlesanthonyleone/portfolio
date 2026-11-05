@@ -1,4 +1,4 @@
-/* Coherent photoreal helm plate over scene.js sky/ocean + flame flicker. water8: sea void flood-clear into ocean band + film timber */
+/* Coherent photoreal helm plate over scene.js sky/ocean + flame flicker. film1: film-still timber grade + soft sea join; keep water void */
 (()=>{
   const K='pf-rock', rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let on=(()=>{try{const v=localStorage.getItem(K);return v===null?!rm:v==='1'}catch{return!rm}})();
@@ -55,8 +55,8 @@ gl_FragColor=vec4(col,max(a,halo));}`));
   }
 
   const CFG={
-    d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.748,hy:.552,lh:.065,px:.72,py:.70,ax:.5,dy:0.34,scale:0.96},
-    m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.805,hy:.542,lh:.07,px:.76,py:.76,ax:.5,dy:0.42,scale:0.88}
+    d:{src:'assets/sky/deck.webp',W:2560,H:1800,hx:.748,hy:.548,lh:.062,px:.72,py:.70,ax:.5,dy:0.34,scale:0.96},
+    m:{src:'assets/sky/deck-m.webp',W:1328,H:1440,hx:.805,hy:.538,lh:.068,px:.76,py:.76,ax:.5,dy:0.42,scale:0.88}
   };
   let c,iw,ih,lw,lhh,DPR=Math.min(devicePixelRatio||1,2);
 
