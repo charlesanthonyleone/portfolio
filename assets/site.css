@@ -123,3 +123,5 @@ html.calm .p-projects .proj{opacity:1;transform:none;filter:none;transition:none
 /* HD ship deck sharpen (subtle; stars stay on scene-top behind .ship) */
 #deck{filter:contrast(1.06) saturate(1.05)}
 .lantern img{filter:contrast(1.04) saturate(1.06)}
+.pb p strong{color:var(--gold2);font-weight:700}
+.proj.feat .pb p strong{color:#ffe6b0}
