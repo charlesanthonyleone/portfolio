@@ -108,8 +108,8 @@
       const dk=c.createRadialGradient(0,0,0,0,0,rr);
       dk.addColorStop(0,'rgba(12,7,4,.12)');
       dk.addColorStop(.28,'rgba(6,6,10,.48)');
-      dk.addColorStop(.65,'rgba(4,6,12,.62)');
-      dk.addColorStop(1,'rgba(3,5,10,.70)');
+      dk.addColorStop(.65,'rgba(4,6,12,.50)');
+      dk.addColorStop(1,'rgba(3,5,10,.58)');
       c.fillStyle=dk;c.fillRect(-W*2,-H*2,W*4,H*4);c.restore();
 
       // Bow fog into the night sea
@@ -239,6 +239,15 @@
       dc.save();
       dc.fillStyle='rgba(0,0,0,.45)';
       dc.beginPath();dc.ellipse(wx, wy+R*.15, R*1.05, R*.22, 0, 0, 7);dc.fill();
+      dc.restore();
+      // Soft ambient lift behind the wheel so dark timber separates from the deck
+      dc.save();
+      const lift=dc.createRadialGradient(wx, wy, R*.2, wx, wy, R*1.25);
+      lift.addColorStop(0,'rgba(255,190,110,.10)');
+      lift.addColorStop(.55,'rgba(40,28,16,.06)');
+      lift.addColorStop(1,'rgba(0,0,0,0)');
+      dc.globalCompositeOperation='lighter';
+      dc.fillStyle=lift;dc.beginPath();dc.ellipse(wx,wy,R*1.2,R*1.05,0,0,7);dc.fill();
       dc.restore();
 
       if(WHL.complete&&WHL.naturalWidth){
