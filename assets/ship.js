@@ -31,7 +31,7 @@ let c,iw,ih,lw,lhh,DPR=Math.min(devicePixelRatio||1,2.5);
 function fit(){const w=innerWidth,h=innerHeight;c=w<760?CFG.m:CFG.d;if(!deck.src.endsWith(c.src))deck.src=c.src;
 const s=Math.max(w/c.W,h/(c.H*.8))*1.04;iw=c.W*s;ih=c.H*s;const x=(w-iw)*c.ax,y=h-ih+ih*c.dy;
 ship.style.width=iw+'px';ship.style.height=ih+'px';ship.style.left=x+'px';ship.style.top=y+'px';
-lhh=ih*c.lh;lw=lhh*488/1200;Object.assign(lan.style,{width:lw+'px',height:lhh+'px',left:(c.hx*iw-lw/2)+'px',top:(c.hy*ih)+'px'});
+lhh=ih*c.lh;lw=lhh*427/1050;Object.assign(lan.style,{width:lw+'px',height:lhh+'px',left:(c.hx*iw-lw/2)+'px',top:(c.hy*ih)+'px'});
 fc.width=Math.round(lw*.5*DPR);fc.height=Math.round(lhh*.32*DPR);fc.style.width=lw*.5+'px';fc.style.height=lhh*.32+'px';
 const R=Math.max(180,iw*.2);glow.style.setProperty('--r',R+'px');glow.style.left=c.hx*iw+'px';glow.style.top=(c.hy*ih+lhh*.47)+'px';
 pool.style.left=c.px*iw+'px';pool.style.top=c.py*ih+'px';pool.style.setProperty('--r',iw*.22+'px')}
