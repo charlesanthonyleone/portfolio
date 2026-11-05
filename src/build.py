@@ -4,7 +4,7 @@ hero,inv,story,proj,foot,gear=[R(f+'.html') for f in 'hero invite story projects
 hero=hero.replace('href="#story"','href="story.html"').replace('href="#projects"','href="projects.html"')
 inv=inv.replace('href="#projects"','href="projects.html"')
 arts=re.findall(r'<article.*?</article>',proj,re.S)
-foot=foot.replace('Ship deck &amp; lantern: original image generated for this site','Ship deck &amp; lantern: original images generated for this site')
+foot=foot.replace('Ship deck &amp; lantern: original image generated for this site','Ship deck &amp; lantern: drawn in code for this site')
 def page(fn,title,cls,body,extra=''):
   nav=''.join(f'<a href="{h}"{" aria-current=page" if h==fn else ""}>{t}</a>' for h,t in [('story.html','My Story'),('projects.html','Projects'),('https://github.com/charlesanthonyleone','GitHub')])
   open(fn,'w').write(f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -14,7 +14,7 @@ def page(fn,title,cls,body,extra=''):
 <div class="scene" aria-hidden="true"><div id="scene-fb" class="scene-fallback"></div><canvas id="scene-gl" class="scene-gl"></canvas><canvas id="scene-2d" class="scene-2d"></canvas></div>
 <div id="dawn" class="dawn" aria-hidden="true"></div>{extra}
 <canvas id="scene-top" class="scene-top" aria-hidden="true"></canvas>
-<div class="ship" id="ship" aria-hidden="true"><picture><source media="(max-width:759px)" srcset="assets/sky/ship-deck-night-mobile.webp 864w, assets/sky/ship-deck-night-mobile@2x.webp 1728w" sizes="104vw"><img id="deck" src="assets/sky/ship-deck-night.webp" srcset="assets/sky/ship-deck-night.webp 1280w, assets/sky/ship-deck-night@2x.webp 2560w" sizes="104vw" width="1280" height="720" alt="" decoding="async" fetchpriority="high" draggable="false"></picture><div class="lantern-fire" aria-hidden="true"></div></div>
+<div class="ship" id="ship" aria-hidden="true"><canvas id="deck"></canvas><canvas id="lantern"></canvas></div>
 <nav class="nav glass"><a href="index.html" class="brand">Charles Leone</a><span>{nav}</span></nav>
 <main class="wrap">{body}{foot}</main>
 {gear}

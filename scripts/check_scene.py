@@ -18,9 +18,8 @@ for page in ('index.html','story.html','projects.html'):
     text=Path(page).read_text()
     Assets().feed(text)
     assert text.count('id="ship"')==1
-    assert 'ship-deck-night-mobile@2x.webp 1728w' in text
-    assert 'ship-deck-night@2x.webp 2560w' in text
-    assert 'assets/sky/lantern.webp' not in text
+    assert '<canvas id="deck"></canvas><canvas id="lantern"></canvas>' in text
+    assert '.webp' not in text.split('id="ship"')[1].split('</div>')[0], 'deck must be procedural, not a photo plate'
 
 source=Path('src/story.html').read_text()
 rendered=Path('story.html').read_text()
@@ -39,5 +38,5 @@ css=Path('assets/site.css').read_text()
 assert '.ship{position:fixed;z-index:2;' in css
 assert '.scene-top{z-index:1;' in css
 assert 'z-index:9999' not in css
-assert 'html.calm .ship,html.calm .lantern-fire{animation:none' in css
+assert 'html.calm .ship{animation:none' in css
 print('PASS: assets, responsive sources, layer order, reduced motion, verbatim texts, story layout and flagship links')
