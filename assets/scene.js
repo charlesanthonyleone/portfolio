@@ -104,24 +104,24 @@ void main(){
     vec3 r = reflect(rd, n); r.y = abs(r.y) + .001;
     float fres = clamp(.02 + .98*pow(1. - max(dot(n, -rd), 0.), 5.), 0., 1.);
     vec3 refl = sky(r, true) * 1.3;
-    vec3 deep = vec3(.0006,.003,.007);
-    vec3 sss = vec3(.010,.040,.055) * pow(max(p.y + 1.5, 0.)*.28, 2.) * max(dot(n, MOON*vec3(1,0,1)) + .3, 0.);
+    vec3 deep = vec3(.004,.022,.048);
+    vec3 sss = vec3(.028,.070,.095) * pow(max(p.y + 1.5, 0.)*.28, 2.) * max(dot(n, MOON*vec3(1,0,1)) + .3, 0.);
     col = mix(deep + sss, refl, fres*.8);
     float sp = max(dot(r, MOON), 0.);
     // moonlit glitter path: a column straight down from the moon on screen, widening slightly toward the viewer,
     // lit only where wave facets tilt the reflection toward the moon (so it shimmers instead of being a flat stripe)
-    float cx = rd.x/rd.z - MOON.x/MOON.z, wdt = .035 + (-rd.y)*.10;
+    float cx = rd.x/rd.z - MOON.x/MOON.z, wdt = .062 + (-rd.y)*.14;
     float column = exp(-cx*cx/(wdt*wdt));
-    col += vec3(.92,.95,1.) * (pow(sp, 2400.)*1.5*column + column*(pow(sp, 14.)*1.1 + pow(sp, 120.)*.9 + .012)) * (.6 + .4*fres*6.);
+    col += vec3(.92,.95,1.) * (pow(sp, 1800.)*2.0*column + column*(pow(sp, 10.)*1.4 + pow(sp, 80.)*1.2 + .045)) * (.85 + .35*fres*6.);
     // starlight glinting off facets: reflected stars break into sparkles
     vec3 rs = rotX(.62) * rotY(TS*.004) * rotX(-.62) * r;
     float gl = starfield(rs, 140., .955) * fres * 6. * exp(-dist*.004);
     col += vec3(.75,.82,1.) * gl * .5;
     float fog = 1. - exp(-dist*.0016);
-    col = mix(col, vec3(.006,.014,.012), fog*.92);
+    col = mix(col, vec3(.016,.040,.055), fog*.85);
   }
   col = mix(col, vec3(.010,.022,.016), mist*.55);
-  col *= 1. - .32*dot(uv*.85, uv*.85); // vignette
+  col *= 1. - .18*dot(uv*.85, uv*.85); // vignette
   col = col / (1. + col*.5);
   col = pow(col, vec3(.4545));
   col += (h21(gl_FragCoord.xy + fract(T)*100.) - .5) / 220.; // dither: no banding in the dark gradients
