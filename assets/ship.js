@@ -55,7 +55,7 @@
     deck.width=lan.width=W;deck.height=lan.height=H;
     const vh=innerHeight*D, top=(r.top)*D;
     hy=vh*HZ-top; f=Math.max(vh*.62,W*.36); cx=W/2;
-    const narrow=W<H; LX=narrow?.42:1.05; LZ=narrow?3.9:3.4;
+    const narrow=W<H; LX=narrow?.55:1.05; LZ=narrow?5.1:3.4;
     s=7;const c=dc;c.clearRect(0,0,W,H);
 
     // --- deck planks (clipped to hull)
