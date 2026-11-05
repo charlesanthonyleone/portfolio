@@ -108,8 +108,8 @@
       const dk=c.createRadialGradient(0,0,0,0,0,rr);
       dk.addColorStop(0,'rgba(12,7,4,.12)');
       dk.addColorStop(.28,'rgba(6,6,10,.48)');
-      dk.addColorStop(.65,'rgba(4,6,12,.72)');
-      dk.addColorStop(1,'rgba(3,5,10,.82)');
+      dk.addColorStop(.65,'rgba(4,6,12,.62)');
+      dk.addColorStop(1,'rgba(3,5,10,.70)');
       c.fillStyle=dk;c.fillRect(-W*2,-H*2,W*4,H*4);c.restore();
 
       // Bow fog into the night sea
@@ -216,7 +216,7 @@
 
     // --- ship's wheel: photoreal PNG composited at the helm (not flat canvas arcs)
     {
-      const R=Math.min(W*.22, H*.23);
+      const R=Math.min(W*.24, H*.26);
       const wx=cx-(narrow?0:W*.05);
       const wy=H-R*.28;
 
@@ -242,26 +242,28 @@
       dc.restore();
 
       if(WHL.complete&&WHL.naturalWidth){
-        const size=R*2.35;
+        const size=R*2.45;
+        // Grade on an offscreen canvas so transparent wheel pixels don't darken the deck
+        const oc=document.createElement('canvas'); oc.width=Math.ceil(size); oc.height=Math.ceil(size);
+        const o=oc.getContext('2d');
+        o.imageSmoothingEnabled=true;o.imageSmoothingQuality='high';
+        o.drawImage(WHL, 0, 0, oc.width, oc.height);
+        o.globalCompositeOperation='source-atop';
+        const ng=o.createRadialGradient(oc.width*.35,oc.height*.3,0,oc.width/2,oc.height/2,oc.width*.55);
+        ng.addColorStop(0,'rgba(255,185,100,.16)');
+        ng.addColorStop(.55,'rgba(0,0,0,0)');
+        ng.addColorStop(1,'rgba(0,4,12,.16)');
+        o.fillStyle=ng;o.fillRect(0,0,oc.width,oc.height);
+        const wl=o.createLinearGradient(0,0,oc.width,oc.height*.6);
+        wl.addColorStop(0,'rgba(0,0,0,.10)');
+        wl.addColorStop(.5,'rgba(255,170,80,.08)');
+        wl.addColorStop(1,'rgba(255,200,120,.24)');
+        o.fillStyle=wl;o.fillRect(0,0,oc.width,oc.height);
         dc.save();
         dc.imageSmoothingEnabled=true;dc.imageSmoothingQuality='high';
-        // slight tilt toward lantern side for depth
         dc.translate(wx, wy);
         dc.rotate(narrow?0.02:-0.04);
-        dc.drawImage(WHL, -size/2, -size/2, size, size);
-        // Night grade so the studio-lit wheel matches the dark deck
-        dc.globalCompositeOperation='source-atop';
-        const ng=dc.createRadialGradient(-size*.15,-size*.2,0,0,0,size*.65);
-        ng.addColorStop(0,'rgba(255,175,90,.10)');
-        ng.addColorStop(.45,'rgba(0,0,0,0)');
-        ng.addColorStop(1,'rgba(0,4,12,.38)');
-        dc.fillStyle=ng;dc.fillRect(-size/2,-size/2,size,size);
-        // lantern-side warm rim light
-        const wl=dc.createLinearGradient(-size*.4,0,size*.5,size*.2);
-        wl.addColorStop(0,'rgba(0,0,0,.25)');
-        wl.addColorStop(.55,'rgba(255,160,70,.06)');
-        wl.addColorStop(1,'rgba(255,190,110,.16)');
-        dc.fillStyle=wl;dc.fillRect(-size/2,-size/2,size,size);
+        dc.drawImage(oc, -size/2, -size/2, size, size);
         dc.restore();
       }else{
         // Fallback procedural wheel if PNG fails
