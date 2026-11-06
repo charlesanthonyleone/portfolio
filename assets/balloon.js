@@ -1,11 +1,13 @@
-/* Balloon-over-ocean plate: gear panel + gentle sway toggle (honors prefers-reduced-motion). */
+/* Balloon plate: gear panel + sway / clouds / water toggles (honor prefers-reduced-motion). */
 (()=>{
-  const K='pf-rock',rm=matchMedia('(prefers-reduced-motion: reduce)').matches,$=id=>document.getElementById(id);
-  let on=(()=>{try{const v=localStorage.getItem(K);return v===null?!rm:v==='1'}catch{return!rm}})();
-  const apply=()=>{document.documentElement.classList.toggle('calm',!on);document.documentElement.classList.toggle('sway',on)};
-  window.pfMotion=()=>on;apply();
-  const cb=$('set-rock'),g=$('gear'),pn=$('scene-panel');
-  if(cb){cb.checked=on;cb.addEventListener('change',()=>{on=cb.checked;try{localStorage.setItem(K,on?'1':'0')}catch{}apply();dispatchEvent(new Event('pfmotion'))})}
+  const rm=matchMedia('(prefers-reduced-motion: reduce)').matches,$=id=>document.getElementById(id),H=document.documentElement;
+  const get=k=>{try{const v=localStorage.getItem(k);return v===null?!rm:v==='1'}catch{return!rm}};
+  const S={rock:['pf-rock','sway'],clouds:['pf-clouds','m-clouds'],water:['pf-water','m-water']},st={};
+  const apply=()=>{for(const k in S)H.classList.toggle(S[k][1],st[k]);H.classList.toggle('calm',!st.rock)};
+  for(const k in S)st[k]=get(S[k][0]);
+  window.pfMotion=()=>st.rock;apply();
+  for(const k in S){const cb=$('set-'+k);if(!cb)continue;cb.checked=st[k];cb.addEventListener('change',()=>{st[k]=cb.checked;try{localStorage.setItem(S[k][0],st[k]?'1':'0')}catch{}apply();if(k==='rock')dispatchEvent(new Event('pfmotion'))})}
+  const g=$('gear'),pn=$('scene-panel');
   if(g&&pn){g.addEventListener('click',()=>{const h=pn.hidden;pn.hidden=!h;g.setAttribute('aria-expanded',String(h))});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pn.hidden){pn.hidden=true;g.setAttribute('aria-expanded','false');g.focus()}})}
 })();

@@ -140,3 +140,26 @@ html.sway .balloon-plate{animation:bsway 14s ease-in-out infinite alternate}
 @keyframes bsway{0%{transform:rotate(-.45deg) translateX(-.4%)}100%{transform:rotate(.45deg) translateX(.4%)}}
 @media (prefers-reduced-motion:reduce){html:not(.sway) .balloon-plate{animation:none}}
 html.calm .balloon-plate{animation:none}
+/* balloon2: overlay FX locked to the plate (sway with it) */
+.fx-cloud,.fx-water{position:absolute;left:0;right:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
+.fx-cloud{top:33%;height:40%;mix-blend-mode:screen;filter:blur(28px);background-repeat:repeat-x;
+ -webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent)}
+.fx-cloud.c1{background-image:radial-gradient(38% 30% at 22% 55%,rgba(205,215,235,.55),transparent 70%),radial-gradient(30% 24% at 68% 40%,rgba(190,205,230,.45),transparent 70%),radial-gradient(26% 20% at 92% 70%,rgba(210,220,240,.4),transparent 70%);background-size:1400px 100%;animation:cdrift 40s linear infinite,cbob 11s ease-in-out infinite alternate}
+.fx-cloud.c2{top:40%;height:34%;filter:blur(40px);background-image:radial-gradient(45% 34% at 35% 50%,rgba(180,195,225,.45),transparent 70%),radial-gradient(34% 28% at 80% 60%,rgba(200,210,235,.38),transparent 70%);background-size:2100px 100%;animation:cdrift2 80s linear infinite,cbob 17s ease-in-out infinite alternate-reverse}
+@keyframes cdrift{to{background-position-x:1400px}}
+@keyframes cdrift2{to{background-position-x:-2100px}}
+@keyframes cbob{from{transform:translateY(-.4%)}to{transform:translateY(.4%)}}
+.fx-water{top:47%;height:23%;mix-blend-mode:screen;
+ background:repeating-linear-gradient(180deg,rgba(225,232,250,0) 0 5px,rgba(225,232,250,.5) 6px,rgba(225,232,250,0) 8px);background-size:100% 26px;
+ -webkit-mask-image:radial-gradient(22% 75% at 73% 50%,#000,transparent 80%),linear-gradient(transparent,transparent);mask-image:radial-gradient(22% 75% at 73% 50%,#000,transparent 80%);
+ animation:wshim 9s linear infinite,wpulse 5s ease-in-out infinite alternate}
+@keyframes wshim{to{background-position-y:26px}}
+@keyframes wpulse{from{filter:blur(.6px) brightness(.8)}to{filter:blur(1.2px) brightness(1.2)}}
+@media (max-aspect-ratio:3/4){.fx-cloud.c1{top:38%;height:34%}.fx-cloud.c2{top:52%;height:22%}.fx-water{top:42%;height:28%;-webkit-mask-image:radial-gradient(28% 80% at 52% 50%,#000,transparent 80%);mask-image:radial-gradient(28% 80% at 52% 50%,#000,transparent 80%)}}
+html.m-clouds .fx-cloud{opacity:.32}
+html.m-water .fx-water{opacity:.16}
+html:not(.m-clouds) .fx-cloud,html:not(.m-water) .fx-water{animation:none}
+@media (prefers-reduced-motion:reduce){html:not(.m-clouds) .fx-cloud,html:not(.m-water) .fx-water{animation:none;opacity:0}}
+.hero-quote{max-width:680px;margin:34px auto 0;padding:0 16px;font-size:16px;line-height:1.6;font-style:italic;color:rgba(232,236,246,.9);text-shadow:0 2px 24px rgba(0,0,0,.85),0 1px 3px rgba(0,0,0,.9)}
+.hero-quote p{margin:0}
+@media (max-width:640px){.p-home .hero{padding-top:4vh}.hero-quote{font-size:13px;line-height:1.5;margin-top:16px;max-width:330px}}
