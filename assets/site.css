@@ -156,10 +156,14 @@ html.calm .balloon-plate{animation:none}
 @keyframes wshim{to{background-position-y:26px}}
 @keyframes wpulse{from{filter:blur(.6px) brightness(.8)}to{filter:blur(1.2px) brightness(1.2)}}
 @media (max-aspect-ratio:3/4){.fx-cloud.c1{top:38%;height:34%}.fx-cloud.c2{top:52%;height:22%}.fx-water{top:42%;height:28%;-webkit-mask-image:radial-gradient(28% 80% at 52% 50%,#000,transparent 80%);mask-image:radial-gradient(28% 80% at 52% 50%,#000,transparent 80%)}}
-html.m-clouds .fx-cloud{opacity:.32}
+html.m-clouds .fx-cloud{opacity:.5}
 html.m-water .fx-water{opacity:.16}
 html:not(.m-clouds) .fx-cloud,html:not(.m-water) .fx-water{animation:none}
 @media (prefers-reduced-motion:reduce){html:not(.m-clouds) .fx-cloud,html:not(.m-water) .fx-water{animation:none;opacity:0}}
 .hero-quote{max-width:680px;margin:34px auto 0;padding:0 16px;font-size:16px;line-height:1.6;font-style:italic;color:rgba(232,236,246,.9);text-shadow:0 2px 24px rgba(0,0,0,.85),0 1px 3px rgba(0,0,0,.9)}
 .hero-quote p{margin:0}
 @media (max-width:640px){.p-home .hero{padding-top:4vh}.hero-quote{font-size:13px;line-height:1.5;margin-top:16px;max-width:330px}}
+/* balloon3: star/meteor/moon canvases */
+.fx-cloud.c3{top:36%;height:30%;filter:blur(55px);background-image:radial-gradient(50% 40% at 50% 50%,rgba(215,225,245,.4),transparent 70%);background-size:2800px 100%;animation:cdrift 120s linear infinite,cbob 23s ease-in-out infinite alternate}
+.skyfx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
+.skytop{position:fixed;inset:0;width:100vw;height:100vh;z-index:50;pointer-events:none}
