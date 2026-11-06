@@ -9,13 +9,13 @@ def page(fn,title,cls,body,extra=''):
   open(fn,'w').write(f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{title}</title><meta name="description" content="Charles Leone — self-taught builder of tools for humanity.">
 <meta name="theme-color" content="#02050b"><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
-<link rel="preload" href="assets/sky/balloon.webp?v=balloon1" as="image" media="(min-aspect-ratio: 3/4)"><link rel="preload" href="assets/sky/balloon-m.webp?v=balloon1" as="image" media="(max-aspect-ratio: 3/4)"><link rel="stylesheet" href="assets/site.css?v=balloon3"></head><body class="{cls}">
-<div class="balloon" aria-hidden="true"><div class="balloon-plate" id="balloon"><div class="fx-water"></div><div class="fx-cloud c1"></div><div class="fx-cloud c2"></div><div class="fx-cloud c3"></div><canvas id="skyfx" class="skyfx"></canvas></div><canvas id="skytop" class="skytop"></canvas></div>
+<link rel="preload" href="assets/sky/balloon.webp?v=balloon1" as="image" media="(min-aspect-ratio: 3/4)"><link rel="preload" href="assets/sky/balloon-m.webp?v=balloon1" as="image" media="(max-aspect-ratio: 3/4)"><link rel="stylesheet" href="assets/site.css?v=balloon4"></head><body class="{cls}">
+<div class="balloon" aria-hidden="true"><div class="balloon-plate" id="balloon"><div class="fx-water"></div><div class="fx-cloud c1"></div><div class="fx-cloud c2"></div><div class="fx-cloud c3"></div></div><canvas id="skyfx" class="skyfx"></canvas></div><canvas id="skytop" class="skytop"></canvas></div>
 <div id="dawn" class="dawn" aria-hidden="true"></div>{extra}
 <nav class="nav glass"><a href="index.html" class="brand">Charles Leone</a><span>{nav}</span></nav>
 <main class="wrap">{body}{foot}</main>
 {gear}
-<script src="assets/balloon.js?v=balloon3" defer></script><script src="assets/skyfx.js?v=balloon3" defer></script><script src="assets/pages.js?v=balloon3" defer></script>
+<script src="assets/balloon.js?v=balloon4" defer></script><script src="assets/skyfx.js?v=balloon4" defer></script><script src="assets/pages.js?v=balloon4" defer></script>
 </body></html>''')
 feat='<section class="featured"><div class="sec-h"><h2 class="sh">Flagship</h2><a class="hint" href="projects.html">All 14 projects →</a></div><div class="grid">'+''.join(arts[:3])+'</div></section>'
 links='<section class="doors"><a class="door glass" href="story.html"><span class="eyebrow">The log</span><b>My Story</b><span>In my own words — 12 min read</span></a><a class="door glass" href="projects.html"><span class="eyebrow">The work</span><b>Projects</b><span>14 things built and live</span></a></section>'
