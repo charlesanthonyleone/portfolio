@@ -132,3 +132,11 @@ html.calm .p-projects .proj{opacity:1;transform:none;filter:none;transition:none
 .story-columns .sh{font-size:clamp(26px,3vw,36px)}
 .story-columns .verbatim{font-size:14px}
 @media(max-width:1000px){.story-columns{grid-template-columns:1fr}.story-columns>.essay{padding:26px 22px}}
+/* balloon1: single coherent plate, fixed full-bleed */
+.balloon{position:fixed;inset:0;z-index:0;pointer-events:none;background:#02050b;overflow:hidden}
+.balloon-plate{position:absolute;inset:-2.5%;background:url("sky/balloon.webp?v=balloon1") 50% 100%/cover no-repeat;transform-origin:50% 0}
+@media (max-aspect-ratio:3/4){.balloon-plate{background-image:url("sky/balloon-m.webp?v=balloon1")}}
+html.sway .balloon-plate{animation:bsway 14s ease-in-out infinite alternate}
+@keyframes bsway{0%{transform:rotate(-.45deg) translateX(-.4%)}100%{transform:rotate(.45deg) translateX(.4%)}}
+@media (prefers-reduced-motion:reduce){html:not(.sway) .balloon-plate{animation:none}}
+html.calm .balloon-plate{animation:none}
