@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Charles Leone · Portfolio</title>
+    <meta name="description" content="This portfolio is locked." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#02050b" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>" />
+    <link rel="preload" href="assets/sky/balloon.webp?v=balloon1" as="image" media="(min-aspect-ratio: 3/4)" />
+    <link rel="preload" href="assets/sky/balloon-m.webp?v=balloon1" as="image" media="(max-aspect-ratio: 3/4)" />
+    <link rel="stylesheet" href="assets/site.css?v=balloon4" />
+    <style>
+        .gate-loading[hidden],
+        .gate-wrap[hidden] { display: none !important; }
+        .gate-wrap {
+            position: relative;
+            z-index: 3;
+            min-height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8vh 16px 24vh;
+            box-sizing: border-box;
+        }
+        .gate-loading {
+            position: fixed;
+            inset: 0;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gate-loading p { margin: 0; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-size: 12px; text-shadow: 0 2px 18px #000; }
+        .gate-card {
+            width: min(440px, 100%);
+            border-radius: 24px;
+            padding: 34px 28px 26px;
+            text-align: center;
+            background: rgba(8, 12, 22, .78);
+        }
+        .gate-card h1 { font-size: clamp(34px, 5vw, 52px); margin: 0; white-space: nowrap; }
+        .gate-lede { font-size: 16.5px; line-height: 1.55; margin: 14px auto 22px; max-width: 34em; color: #d3dbe8; text-shadow: 0 2px 24px rgba(0, 0, 0, .7); }
+        .gate-label {
+            display: block;
+            margin: 0 0 8px;
+            text-align: left;
+            color: var(--gold);
+            font-size: 12px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+        .gate-field { position: relative; margin-bottom: 14px; }
+        .gate-field input {
+            width: 100%;
+            box-sizing: border-box;
+            font: 16px/1.4 var(--font);
+            color: var(--ink);
+            background: rgba(0, 0, 0, .35);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 12px 76px 12px 16px;
+            outline: none;
+        }
+        .gate-field input::placeholder { color: var(--faint); }
+        .gate-field input:focus { border-color: rgba(246, 220, 166, .55); box-shadow: 0 0 0 3px rgba(233, 194, 122, .18); }
+        .gate-toggle {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: var(--gold2);
+            font: 13px/1 var(--font);
+            padding: 8px 10px;
+            cursor: pointer;
+        }
+        .gate-card .btn {
+            display: block;
+            width: 100%;
+            border: 0;
+            cursor: pointer;
+            text-align: center;
+            font: 600 15px/1 var(--font);
+            padding: 12px 18px;
+        }
+        .gate-card .btn[disabled] { opacity: .7; cursor: progress; }
+        .gate-error { margin: 0 0 12px; color: #ffc7b0; font-size: 14px; text-shadow: none; }
+        .gate-credit { margin: 18px 0 0; color: var(--faint); font-size: 11.5px; text-shadow: none; }
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        input::-ms-reveal, input::-ms-clear { display: none; }
+        @media (max-width: 640px) {
+            .gate-wrap, .gate-loading { padding: 12vh 12px 18vh; }
+            .gate-card { padding: 28px 18px 20px; }
+            .gate-lede { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="balloon" aria-hidden="true">
+        <div class="balloon-plate" id="balloon">
+            <div class="fx-water"></div>
+            <div class="fx-cloud c1"></div>
+            <div class="fx-cloud c2"></div>
+            <div class="fx-cloud c3"></div>
+        </div>
+        <canvas id="skyfx" class="skyfx"></canvas>
+    </div>
+    <canvas id="skytop" class="skytop"></canvas>
+
+    <div id="gate-loading" class="gate-loading" hidden>
+        <p>Opening</p>
+    </div>
+
+    <main class="gate-wrap" id="gate-content">
+        <section class="gate-card glass" aria-labelledby="gate-title">
+            <p class="eyebrow">Portfolio</p>
+            <h1 id="gate-title">Charles Leone</h1>
+            <p class="gate-lede">This night is locked. Enter the passkey you were given.</p>
+            <form id="gate-form" action="#" method="post">
+                <label class="gate-label" for="gate-passkey">Passkey</label>
+                <div class="gate-field">
+                    <input id="gate-passkey" type="password" name="passkey" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="Passkey" required />
+                    <button type="button" class="gate-toggle" id="gate-toggle" aria-controls="gate-passkey" aria-pressed="false">Show</button>
+                </div>
+                <p id="gate-error" class="gate-error" role="alert" hidden>That passkey does not open this portfolio.</p>
+                <button type="submit" class="btn" id="gate-submit">Unlock</button>
+            </form>
+            <p class="credit gate-credit">Scene: hot air balloon over the ocean</p>
+        </section>
+    </main>
+    <noscript><p style="position:relative;z-index:5;color:#eef2f8;text-align:center;padding:24px">This portfolio is encrypted and needs JavaScript to unlock.</p></noscript>
+
+    <div class="scene-set">
+        <div id="scene-panel" class="scene-panel glass" role="dialog" aria-label="Scene settings" hidden>
+            <label><input type="checkbox" id="set-rock" /> Balloon sway</label>
+            <label><input type="checkbox" id="set-clouds" /> Clouds</label>
+            <label><input type="checkbox" id="set-water" /> Water</label>
+            <label><input type="checkbox" id="set-stars" /> Stars</label>
+            <label><input type="checkbox" id="set-moon" /> Moon</label>
+            <p>Off shows a still frame. Defaults follow your system's reduced-motion setting.</p>
+        </div>
+        <button id="gear" class="scene-gear glass" aria-expanded="false" aria-label="Scene settings" title="Scene settings">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3.5h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg>
+        </button>
+    </div>
+
+    <script src="assets/balloon.js?v=balloon4" defer></script>
+    <script src="assets/skyfx.js?v=balloon4" defer></script>
+    <script>
+        (function () {
+            var PASSPHRASE_KEY = "staticrypt_passphrase";
+            var EXPIRATION_KEY = "staticrypt_expiration";
+            var original = {
+                getItem: Storage.prototype.getItem,
+                setItem: Storage.prototype.setItem,
+                removeItem: Storage.prototype.removeItem
+            };
+            function isGateKey(key) {
+                return key === PASSPHRASE_KEY || key === EXPIRATION_KEY;
+            }
+            Storage.prototype.getItem = function (key) {
+                if (isGateKey(key)) return original.getItem.call(sessionStorage, key);
+                return original.getItem.call(this, key);
+            };
+            Storage.prototype.setItem = function (key, value) {
+                if (isGateKey(key)) return original.setItem.call(sessionStorage, key, value);
+                return original.setItem.call(this, key, value);
+            };
+            Storage.prototype.removeItem = function (key) {
+                if (isGateKey(key)) return original.removeItem.call(sessionStorage, key);
+                return original.removeItem.call(this, key);
+            };
+        })();
+
+        const staticryptInitiator = /*[|js_staticrypt|]*/0;
+        const staticryptConfig = /*[|staticrypt_config|]*/0;
+        const templateConfig = {
+            rememberExpirationKey: "staticrypt_expiration",
+            rememberPassphraseKey: "staticrypt_passphrase",
+            replaceHtmlCallback: null,
+            clearLocalStorageCallback: null
+        };
+        const staticrypt = staticryptInitiator.init(staticryptConfig, templateConfig);
+        const passkeyInput = document.getElementById("gate-passkey");
+        const errorEl = document.getElementById("gate-error");
+        const submitButton = document.getElementById("gate-submit");
+        const toggleButton = document.getElementById("gate-toggle");
+        const loadingEl = document.getElementById("gate-loading");
+        const contentEl = document.getElementById("gate-content");
+
+        function showForm() {
+            loadingEl.hidden = true;
+            contentEl.hidden = false;
+            submitButton.disabled = false;
+            submitButton.textContent = "Unlock";
+        }
+
+        toggleButton.addEventListener("click", function () {
+            const showing = passkeyInput.type === "text";
+            passkeyInput.type = showing ? "password" : "text";
+            toggleButton.textContent = showing ? "Show" : "Hide";
+            toggleButton.setAttribute("aria-pressed", showing ? "false" : "true");
+            passkeyInput.focus();
+        });
+
+        document.getElementById("gate-form").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            errorEl.hidden = true;
+            submitButton.disabled = true;
+            submitButton.textContent = "Unlocking…";
+            const { isSuccessful } = await staticrypt.handleDecryptionOfPage(passkeyInput.value, true);
+            if (!isSuccessful) {
+                showForm();
+                errorEl.hidden = false;
+                passkeyInput.focus();
+                passkeyInput.select();
+            }
+        });
+
+        // Hide the prompt immediately when this browser session already unlocked a page.
+        // Decrypt only after load, so document.write replaces the gate instead of being
+        // inserted into a document that is still parsing.
+        if (sessionStorage.getItem("staticrypt_passphrase")) {
+            contentEl.hidden = true;
+            loadingEl.hidden = false;
+            window.addEventListener("load", async function () {
+                const { isSuccessful } = await staticrypt.handleDecryptOnLoad();
+                if (!isSuccessful) showForm();
+            });
+        }
+    </script>
+</body>
+</html>
