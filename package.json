@@ -1,0 +1,8 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "description": "Charles Leone portfolio. The public HTML pages are encrypted with StatiCrypt.",
+  "devDependencies": {
+    "staticrypt": "3.5.4"
+  }
+}
